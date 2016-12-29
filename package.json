@@ -6,9 +6,9 @@
     "test": "npm run lint",
     "deps": "bower install",
     "lint": "eslint . --ignore-path .gitignore",
-    "hash-win64-make": "bin\\hashdeep64.exe -b lv\\i3-docs.lvproj lv\\i3-docs.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
-    "hash-win64-check": "bin\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\i3-docs.lvproj lv\\i3-docs.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
-    "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/i3-docs.lvproj lv/i3-docs.lvlib lv/Controls/* lv/Main/* lv/SubVI/*"
+    "hash-win64-make": "bin\\hashdeep64.exe -b lv\\*.lvproj lv\\*.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
+    "hash-win64-check": "bin\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\*.lvproj lv\\*.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
+    "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/*.lvproj lv/*.lvlib lv/Controls/* lv/Main/* lv/SubVI/*"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/rajsite/i3-docs#readme",
   "devDependencies": {
     "bower": "^1.8.0",
+    "crisper": "^2.0.2",
     "eslint": "^3.12.2",
     "vulcanize": "^1.15.2"
   },

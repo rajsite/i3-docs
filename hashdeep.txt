@@ -1,7 +1,7 @@
 %%%% HASHDEEP-1.0
 %%%% size,md5,sha256,filename
 ## Invoked from: D:\Dropbox\ni\cpigs\src\i3-docs
-## D:\Dropbox\ni\cpigs\src\i3-docs> bin\hashdeep64.exe -b lv\i3-docs.lvproj lv\i3-docs.lvlib lv\Controls\* lv\Main\* lv\SubVI\*
+## D:\Dropbox\ni\cpigs\src\i3-docs> bin\hashdeep64.exe -b lv\*.lvproj lv\*.lvlib lv\Controls\* lv\Main\* lv\SubVI\*
 ## 
 6366,f416255b6a0d4d6ed0e309aa98bb93ce,35b643b32ba7e37514e1fdf01539aeaa404df5eaf77604fc8f08091f6c94b56e,i3-docs.lvproj
 27861,a74345491a49a0d8b1e1f3ee732504c8,5869a4da6952f4f6b6efc96492f7a336b5f0c6ac7cca133d28ed35757c043ad1,i3-docs.lvlib
@@ -10,8 +10,8 @@
 5951,2b73dc79f2013459274d251a416c05e8,764b7a0a4b7e42ad54a7b0ef729fddb5251f1da341e0872f119d0e6885027a69,current_config.ctl
 11678,e8cd6a268ee9635318806406a7334467,6f296693076149e4ed74b8638234a18103ab93add65a1c2acaff3c5d506b1754,image_information.ctl
 19665,aab20dba67752b33dda5e106f048d8c7,85c4dae7f2f5139367a4676c424fa7982d270d12fa3867c30c7d6beba98c914e,project_item.ctl
-42960,6aaf670c7b041a7b730f1d056edd4eda,8b99f395fdd6590f484709f071223e7140c392cdd12eb88ec880e830cfd1b802,Generate JSON Report.vi
 14917,09d6caaa73bdcb793006b1832e8008e4,0f280168e3f9875f424ca1df3a56a15258dc8f7b179f050bb73f989ddd5fa22c,Config FGV - Set Current Project Item.vi
+42960,6aaf670c7b041a7b730f1d056edd4eda,8b99f395fdd6590f484709f071223e7140c392cdd12eb88ec880e830cfd1b802,Generate JSON Report.vi
 34826,32c1ac973acbdc9322164395ccb1f7e8,b139c57c8c554f02615a280f6bdaf779936057dacc9c3e563dbf120a429aacca,Config FGV.vi
 22740,e37526e6e3d0c3f6a079ad67029441af,abedc333a948fac9868c849bfd48d5ebe3c47b3a458e510050cc60c33f580f69,Copy Image To Output.vi
 38982,13a9489850bd3959dd4616b14adefd3e,7485cb537c27c99e2ccf24946d10dc6b2b96a7eec0d9a6051e7e014e48300b5a,Create Project Item - Root Project.vi
@@ -20,6 +20,6 @@
 29657,ff325bf1f274da935688d0f26933ddca,25d8b16e41d0bc8e3b778f74ff570a33ec3ffb581bd0ac3be9974be6fd687c82,Get Block Diagram Image Sizes.vi
 21800,fd3eefc205b729e758fe17300cfaeeae,27891a68e4f7023f9bba162b39fedeedb1e06394d4a97af24ffa350ace9efe07,Get Project Item Type String.vi
 36111,d0c6d99f09c3f82298d47990e8246103,0a635e1645e26aeba5594a693414d338dbbaf81467e7763da921567b1ff96e8a,Iterate Owned Items.vi
-38147,8dcff7c836cda7f534b5b72ee3448be7,5a4d0db4a7776b47ee4fc210074fae12f49706c909d65727a02ab64acc664f40,Select Project Item Creator.vi
 37371,c4ebfae73e1794451d7bd3d020c27b36,17e622568b1cf3c77011feafb47d15213eafc17a2a7f0722417988cb229b8296,Make or Clean Directory.vi
 58963,f679a80c51820de00cf000b683a9916a,8873da027927a3ad6585b577330feb2e82c3376391704853a364a37fc2bae2d1,Load Configuration File.vi
+38147,8dcff7c836cda7f534b5b72ee3448be7,5a4d0db4a7776b47ee4fc210074fae12f49706c909d65727a02ab64acc664f40,Select Project Item Creator.vi
