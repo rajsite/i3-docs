@@ -6,9 +6,9 @@
     "test": "npm run lint",
     "deps": "bower install",
     "lint": "eslint . --ignore-path .gitignore",
-    "hash-win64-make": "bin\\hashdeep64.exe -b lv\\*.lvproj lv\\*.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
-    "hash-win64-check": "bin\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\*.lvproj lv\\*.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
-    "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/* lv/Controls/* lv/Main/* lv/SubVI/*"
+    "hash-win64-make": "bin\\hashdeep64.exe -b lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
+    "hash-win64-check": "bin\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
+    "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/Controls/* lv/Main/* lv/SubVI/*"
   },
   "repository": {
     "type": "git",
