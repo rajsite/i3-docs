@@ -10,7 +10,21 @@
 
 # Executables
 *.exe
+!bin/*.exe
 
 # Metadata
 *.aliases
 *.lvlps
+
+# Log files
+npm-debug.log
+
+# Package manager directories
+bower_components
+node_modules
+
+# Build output
+build
+
+# Local files
+experiments

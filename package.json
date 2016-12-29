@@ -1,0 +1,37 @@
+{
+  "name": "i3-docs",
+  "version": "1.0.0",
+  "description": "Awesome doc generation for LabVIEW projects",
+  "scripts": {
+    "test": "npm run lint",
+    "deps": "bower install",
+    "lint": "eslint . --ignore-path .gitignore",
+    "hash-win64-make": "bin\\hashdeep64.exe -l lv\\i3-docs.lvproj lv\\i3-docs.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
+    "hash-win64-check": "bin\\hashdeep64.exe -l -a -k hashdeep.txt lv\\i3-docs.lvproj lv\\i3-docs.lvlib lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
+    "hash-linux-check": "hashdeep -l -a -k hashdeep.txt lv/i3-docs.lvproj lv/i3-docs.lvlib lv/Controls/* lv/Main/* lv/SubVI/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajsite/i3-docs.git"
+  },
+  "keywords": [
+    "LabVIEW"
+  ],
+  "author": "Milan Raj (@rajsite)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajsite/i3-docs/issues"
+  },
+  "homepage": "https://github.com/rajsite/i3-docs#readme",
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "eslint": "^3.12.2",
+    "vulcanize": "^1.15.2"
+  },
+  "dependencies": {
+    "leaflet-sleep": "^0.5.1",
+    "lunr": "^0.7.2",
+    "promise-polyfill": "^6.0.2",
+    "whatwg-fetch": "^2.0.1"
+  }
+}
