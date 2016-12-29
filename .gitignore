@@ -20,8 +20,8 @@
 npm-debug.log
 
 # Package manager directories
-bower_components
-node_modules
+/bower_components
+/node_modules
 
 # Build output
 build
