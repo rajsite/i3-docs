@@ -1,0 +1,9 @@
+# Package manager directories
+/bower_components
+/node_modules
+
+# Local files
+/experiments
+
+# Pages output
+/docs
