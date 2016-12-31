@@ -6,6 +6,7 @@
     "test": "npm run lint",
     "deps": "bower install",
     "lint": "eslint .",
+    "serve": "http-server -p 8030 -o http://localhost:8030/web/index.html?i3docspath=../docs/ .",
     "hash-win64-make": "bin\\hashdeep64.exe -b lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
     "hash-win64-check": "bin\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
     "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/Controls/* lv/Main/* lv/SubVI/*"
@@ -27,12 +28,14 @@
     "bower": "^1.8.0",
     "crisper": "^2.0.2",
     "eslint": "^3.12.2",
+    "http-server": "^0.9.0",
     "vulcanize": "^1.15.2"
   },
   "dependencies": {
     "leaflet-sleep": "^0.5.1",
     "lunr": "^0.7.2",
     "promise-polyfill": "^6.0.2",
+    "url-search-params": "^0.6.1",
     "whatwg-fetch": "^2.0.1"
   }
 }

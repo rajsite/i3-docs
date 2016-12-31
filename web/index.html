@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
 
+<script src="../node_modules/url-search-params/build/url-search-params.js"></script>
 <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
 <link href="../bower_components/polymer/polymer.html" rel="import">
@@ -41,7 +42,7 @@
 </div>
 
 <div class="project_items_wrapper">
-<iron-list class="project_items" data-i3docs-url="../docs/i3docs.json" scroll-target="document" as="projectItem" selection-enabled>
+<iron-list class="project_items" scroll-target="document" as="projectItem" selection-enabled>
 
 <template>
 <div class="project_item_wrapper">
@@ -50,7 +51,7 @@
 
 <template is="dom-if" if="[[projectItem.icon_image.file_name]]">
 <div class="icon_image_wrapper" style$="height:[[projectItem.icon_image.height]]px;">
-<img class="icon_image" src="../docs/[[projectItem.icon_image.file_name]]">
+<img class="icon_image" src="[[projectItem.icon_image.file_name]]">
 </div>
 </template>
 
@@ -58,7 +59,7 @@
 <iron-collapse class="collapse-content-wrapper" opened="[[blockDiagramImage.opened]]">
 <div class="collapse-content">
 <leaflet-map class="block_diagram_image" min-zoom="1" max-zoom="3" latitude="0" longitude="0" no-attribution-control>
-<leaflet-map-image-overlay url="../docs/[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds></leaflet-image-overlay>
+<leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds></leaflet-image-overlay>
 </leaflet-map>
 </div>
 </iron-collapse>

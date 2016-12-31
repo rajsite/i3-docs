@@ -42,24 +42,49 @@
         });
     };
 
+    var updateUrlsUsingRelativePath = function (data, i3DocsRelativePath) {
+        if (i3DocsRelativePath === '') {
+            return;
+        }
+
+        data.forEach(function (projectItem) {
+            if (projectItem.icon_image.file_name !== '') {
+                projectItem.icon_image.file_name = i3DocsRelativePath + projectItem.icon_image.file_name;
+            }
+
+            projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
+                blockDiagramImage.file_name = i3DocsRelativePath + blockDiagramImage.file_name;
+            });
+        });
+    };
+
     var main = function () {
+        var searchParams = new URLSearchParams(window.location.search);
+        var i3DocsRelativePath = '';
+        if (searchParams.has('i3docspath')) {
+            i3DocsRelativePath += searchParams.get('i3docspath');
+        }
+        var i3DocsPath = i3DocsRelativePath + 'i3docs.json';
+
         var index = lunr(function (idx) {
             idx.field('display_name');
             idx.field('description');
             idx.ref('item_id');
         });
+
         var projectItems = document.querySelector('.project_items');
         projectItemsElement = projectItems;
 
         var searchField = document.querySelector('.search_field');
 
-        fetch(projectItems.dataset.i3docsUrl)
+        fetch(i3DocsPath)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             allData = data;
             addListState(data);
+            updateUrlsUsingRelativePath(data, i3DocsRelativePath);
             buildIndex(index, data);
             addSearchListeners(index, searchField);
             projectItems.items = data;
