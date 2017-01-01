@@ -1,11 +1,6 @@
 /* globals lunr HTMLImports*/
 (function () {
     'use strict';
-
-    // also try http://fusejs.io/
-    // https://github.com/fortnightlabs/snowball-js
-    // https://github.com/mattyork/fuzzy
-    // https://github.com/fiatjaf/js-search-engines-comparison
     var allData = [];
     var projectItemsElement;
 
@@ -64,7 +59,7 @@
         if (searchParams.has('i3docspath')) {
             i3DocsRelativePath += searchParams.get('i3docspath');
         }
-        var i3DocsPath = i3DocsRelativePath + 'i3docs.json';
+        var i3DocsPath = i3DocsRelativePath + 'i3-docs.json';
 
         var index = lunr(function (idx) {
             idx.field('display_name');
@@ -91,13 +86,6 @@
         });
     };
 
-    // Cannot use DOMContentLoaded if we want to support browsers without native HTML Imports
-    // domReady(cb)
-    // There are a couple of scenarios:
-    // 1) Custom Elements loaded with script tag (no HTML Imports) -> can use DOMContentLoaded
-    // 2) Custom Elements loaded with native HTML Imports -> can use DOMContentLoaded
-    // 3) Custom Elements loaded with polyfill HTML Imports -> have to use HTMLImports.whenReady
-    // Current browser support: http://caniuse.com/#feat=Imports
     var domReady = function (readyCallback) {
         if (window.HTMLImports && window.HTMLImports.whenReady) {
             HTMLImports.whenReady(readyCallback);

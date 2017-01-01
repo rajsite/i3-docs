@@ -10,7 +10,7 @@
 
 # Executables
 *.exe
-!bin/*.exe
+!hashdeep/*.exe
 
 # Metadata
 *.aliases
@@ -22,6 +22,9 @@ npm-debug.log
 # Package manager directories
 /bower_components
 /node_modules
+
+# Build output
+/build
 
 # Local files
 /experiments

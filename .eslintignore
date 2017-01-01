@@ -5,5 +5,6 @@
 # Local files
 /experiments
 
-# Pages output
+# Build output
 /docs
+/build

@@ -4,3 +4,4 @@ node_js:
 before_script:
 - npm run deps
 - npm run hash-linux-check
+- npm run build-webapp
