@@ -1,0 +1,10 @@
+# Ignore all
+*
+
+# Except for following
+!bin/**/*
+!build/**/*
+!lv/**/*.ctl
+!lv/**/*.lvlib
+!lv/**/*.lvproj
+!lv/**/*.vi

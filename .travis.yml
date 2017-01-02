@@ -1,7 +1,15 @@
 language: node_js
 node_js:
-- "6"
+- '6'
 before_script:
 - npm run deps
 - npm run hash-linux-check
 - npm run build-webapp
+deploy:
+  provider: npm
+  email: rajsite@gmail.com
+  api_key:
+    secure: xpqGKiVwMWZgLGHr3vriK0MIYuYxI77w0l2AUZIGc+t41B8OXF0N01UyKHh1fWzl/ILAfpgnGZ1qfeP3zYJ/XTEVwsQArCzzvSiLpxVLlBpJkOtd8yWMkW20CMPr/x88zTHc+eBrkPHOfWglSQ2VIzWsHuptHtUlCgLVRYo2zz2Dm73A7Omklha0+u33JfibXPHaaXkJWVTFl/mZFHlemRRKhQGrELdrZtxv7EtS/Si2KHKcYjwnUXijunxz0lbbRItk/YwJ0IEN9lXdICbijooNdhleumA47Do+Iq8idgBv+lwnbqKwGzbYoBl3PdY9pWSDmVChLi9OuH/YvTfNnYuEhvYco2oxoDf/HpNYvlTfmebGEqt9xEljv41KeCDIKSaPXoK5I/6bwcXBi7tPrRzwbCc+otGXIdHO0PixYsz0/cR/s1TIbOa/IIgz8IIc4aNR4W7RnlcUc1dxHLJs/k8rmbCFg+KQl51KNalcfJU5Us+3HkWxdFe0VNFfSEpRhzL14dRjnVs1smBDARtt/Z456W/rPK0W7V9B1s62EBGktid3mi0xyHOmGIv4crbhXcmy9rdHNsgQewHmmEZdYl8ELCCa/DG8LOGI485Jit9+uzJgC2FtdjsqRlemDNu7kTZJ01QenFzPHooUjG0KkjWAObmc9CUxJwiF8X0ryrc=
+  on:
+    tags: true
+    repo: rajsite/i3-docs
