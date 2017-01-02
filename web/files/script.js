@@ -56,8 +56,8 @@
     var main = function () {
         var searchParams = new URLSearchParams(window.location.search);
         var i3DocsRelativePath = '';
-        if (searchParams.has('i3docspath')) {
-            i3DocsRelativePath += searchParams.get('i3docspath');
+        if (searchParams.has('i3-docs-path')) {
+            i3DocsRelativePath += searchParams.get('i3-docs-path');
         }
         var i3DocsPath = i3DocsRelativePath + 'i3-docs.json';
 
