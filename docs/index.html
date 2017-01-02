@@ -25128,7 +25128,7 @@ body {
         if (searchParams.has('i3docspath')) {
             i3DocsRelativePath += searchParams.get('i3docspath');
         }
-        var i3DocsPath = i3DocsRelativePath + 'i3docs.json';
+        var i3DocsPath = i3DocsRelativePath + 'i3-docs.json';
 
         var index = lunr(function (idx) {
             idx.field('display_name');
