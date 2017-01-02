@@ -10,9 +10,11 @@
     "hash-win64-create": "hashdeep\\hashdeep64.exe -b lv\\Controls\\* lv\\Main\\* lv\\SubVI\\* > hashdeep.txt",
     "hash-win64-check": "hashdeep\\hashdeep64.exe -v -v -v -b -a -k hashdeep.txt lv\\Controls\\* lv\\Main\\* lv\\SubVI\\*",
     "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/Controls/* lv/Main/* lv/SubVI/*",
-    "prebuild-webapp": "shx mkdir build",
+    "prebuild-webapp": "mkdirp build",
     "build-webapp": "vulcanize --inline-scripts --inline-css --out-html build/index.html web/index.html",
-    "build-docs-win64": "npm run build-webapp && npm run link && i3-docs build && i3-docs install && hash-win64-create"
+    "i3-docs-build": "node bin/i3-docs.js build",
+    "i3-docs-install": "node bin/i3-docs.js install",
+    "build-docs-win64": "npm run build-webapp && npm run i3-docs-build && npm run i3-docs-install && hash-win64-create"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,7 @@
     "crisper": "^2.0.2",
     "eslint": "^3.12.2",
     "http-server": "^0.9.0",
-    "shx": "^0.2.1",
+    "mkdirp": "^0.5.1",
     "vulcanize": "^1.15.2"
   },
   "dependencies": {
