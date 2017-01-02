@@ -12,9 +12,8 @@
     "hash-linux-check": "hashdeep -v -v -v -b -a -k hashdeep.txt lv/Controls/* lv/Main/* lv/SubVI/*",
     "prebuild-webapp": "mkdirp build",
     "build-webapp": "vulcanize --inline-scripts --inline-css --out-html build/index.html web/index.html",
-    "i3-docs-build": "node bin/i3-docs.js build",
     "i3-docs-install": "node bin/i3-docs.js install",
-    "build-docs-win64": "npm run build-webapp && npm run i3-docs-build && npm run i3-docs-install && hash-win64-create"
+    "build-docs-win64": "npm run build-webapp && npm run i3-docs-install && npm run hash-win64-create"
   },
   "repository": {
     "type": "git",
@@ -38,6 +37,7 @@
     "vulcanize": "^1.15.2"
   },
   "dependencies": {
+    "find-parent-dir": "^0.3.0",
     "ini": "^1.3.4",
     "leaflet-sleep": "^0.5.1",
     "lunr": "^0.7.2",

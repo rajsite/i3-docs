@@ -7,8 +7,9 @@
     var fs = require('fs');
     var path = require('path');
     var shelljs = require('shelljs');
+    var findParentDir = require('find-parent-dir');
 
-    var loadi3DocsConfig = function (configPath) {
+    var loadI3DocsConfig = function (configPath) {
         var configText = fs.readFileSync(configPath, 'utf-8');
         var config = ini.parse(configText);
 
@@ -29,28 +30,32 @@
     var install = function (argv) {
         verifyOnlyOneCommand(argv);
 
-        // TODO perform parent search instead
-        var configDir = process.cwd();
+        var cwd = process.cwd();
+        var configDir = findParentDir.sync(cwd, '.i3-docs.ini');
+
+        if (configDir === null) {
+            console.error('Could not find .i3-docs.ini config file');
+            process.exit(1);
+        }
+
         var configPath = path.join(configDir, '.i3-docs.ini');
-        var config = loadi3DocsConfig(configPath);
+        var config = loadI3DocsConfig(configPath);
 
-        var webAppDir = path.join(__dirname, '../build/*');
+        var webAppFileList = path.join(__dirname, '../build/*');
 
-        // TODO actual parse output_directories
-        var outputPath = path.join(configDir, config.output_directories.docs);
-        shelljs.cp('-R', webAppDir, outputPath);
-    };
+        var absoluteOutputDirectories = Object.keys(config.output_directories).map(function (relativeOutputDirectory) {
+            var absoluteOutputDirectory = path.join(configDir, relativeOutputDirectory);
+            return absoluteOutputDirectory;
+        });
 
-    var build = function (argv) {
-        verifyOnlyOneCommand(argv);
-        console.error('Not yet implemented, please run the LabVIEW docs generation manually');
-        process.exit(1);
+        absoluteOutputDirectories.forEach(function (absoluteOutputDirectory) {
+            shelljs.cp('-R', webAppFileList, absoluteOutputDirectory);
+        });
     };
 
     var startOfActualArgs = 2;
     require('yargs')
         .usage('Usage: $0 <command> [options]')
-        .command('build', 'Attempt to run the LabVIEW i3-docs Main VI', {}, build)
         .command('install', 'Copy the i3-docs webapp files to the build output directories', {}, install)
         .demandCommand(1)
         .help('h')
