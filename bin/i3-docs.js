@@ -8,6 +8,7 @@
     var path = require('path');
     var shelljs = require('shelljs');
     var findParentDir = require('find-parent-dir');
+    var yargs = require('yargs');
 
     var loadI3DocsConfig = function (configPath) {
         var configText = fs.readFileSync(configPath, 'utf-8');
@@ -54,11 +55,10 @@
     };
 
     var startOfActualArgs = 2;
-    require('yargs')
-        .usage('Usage: $0 <command> [options]')
-        .command('install', 'Copy the i3-docs webapp files to the build output directories', {}, install)
-        .demandCommand(1)
-        .help('h')
-        .alias('h', 'help')
-        .parse(process.argv.slice(startOfActualArgs));
+    yargs.usage('Usage: $0 <command> [options]')
+         .command('install', 'Copy the i3-docs webapp files to the build output directories', {}, install)
+         .demandCommand(1)
+         .help('h')
+         .alias('h', 'help')
+         .parse(process.argv.slice(startOfActualArgs));
 }());
