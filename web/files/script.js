@@ -1,10 +1,18 @@
 /* globals lunr HTMLImports*/
 (function () {
     'use strict';
-    var allData = [];
-    var projectItemsElement;
 
-    var buildIndex = function (index, data) {
+    var domReady = function (readyCallback) {
+        if (window.HTMLImports && window.HTMLImports.whenReady) {
+            HTMLImports.whenReady(readyCallback);
+        } else if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', readyCallback);
+        } else {
+            readyCallback();
+        }
+    };
+
+    var buildIndex = function (data, index) {
         data.forEach(function (projectItem) {
             index.add(projectItem);
         });
@@ -12,14 +20,16 @@
 
     var addListState = function (data) {
         data.forEach(function (projectItem) {
-            projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
-                blockDiagramImage.opened = true;
+            projectItem.block_diagram_images.forEach(function (blockDiagramImage, index) {
+                blockDiagramImage.opened = index === 0;
             });
         });
     };
 
-    var addSearchListeners = function (index, searchElement) {
-        searchElement.addEventListener('change', function (evt) {
+    var addSearchListeners = function (data, index, searchElement, projectItems) {
+        var allData = data;
+
+        searchElement.addEventListener('value-changed', function (evt) {
             var resultRefs = index.search(evt.target.value);
             var refMap = resultRefs.reduce(function (refMap, resultRef) {
                 refMap[resultRef.ref] = resultRef.score;
@@ -30,36 +40,53 @@
             });
 
             if (results.length > 0) {
-                projectItemsElement.items = results;
+                projectItems.items = results;
             } else {
-                projectItemsElement.items = allData;
+                projectItems.items = allData;
             }
         });
     };
 
-    var updateUrlsUsingRelativePath = function (data, i3DocsRelativePath) {
-        if (i3DocsRelativePath === '') {
+    var addBasePathToUrls = function (data, basePath) {
+        if (basePath === '') {
             return;
         }
 
         data.forEach(function (projectItem) {
             if (projectItem.icon_image.file_name !== '') {
-                projectItem.icon_image.file_name = i3DocsRelativePath + projectItem.icon_image.file_name;
+                projectItem.icon_image.file_name = basePath + projectItem.icon_image.file_name;
             }
 
             projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
-                blockDiagramImage.file_name = i3DocsRelativePath + blockDiagramImage.file_name;
+                blockDiagramImage.file_name = basePath + blockDiagramImage.file_name;
             });
         });
     };
 
-    var main = function () {
+    var getPageConfig = function () {
+        var pageConfig = {
+            basePath: '',
+            searchDefault: '',
+            searchHidden: false
+        };
+
         var searchParams = new URLSearchParams(window.location.search);
-        var i3DocsRelativePath = '';
         if (searchParams.has('i3-docs-path')) {
-            i3DocsRelativePath += searchParams.get('i3-docs-path');
+            pageConfig.basePath = searchParams.get('i3-docs-path');
         }
-        var i3DocsPath = i3DocsRelativePath + 'i3-docs.json';
+
+        if (searchParams.has('search-default')) {
+            pageConfig.searchDefault = searchParams.get('search-default');
+        }
+
+        pageConfig.searchHidden = searchParams.has('search-hidden');
+
+        return pageConfig;
+    };
+
+    var main = function () {
+        var pageConfig = getPageConfig();
+        var i3DocsPath = pageConfig.basePath + 'i3-docs.json';
 
         var index = lunr(function (idx) {
             idx.field('display_name');
@@ -68,32 +95,22 @@
         });
 
         var projectItems = document.querySelector('.project_items');
-        projectItemsElement = projectItems;
-
         var searchField = document.querySelector('.search_field');
+        var viSearchWidgetWrapper = document.querySelector('.vi_search_widget_wrapper');
 
         fetch(i3DocsPath)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            allData = data;
             addListState(data);
-            updateUrlsUsingRelativePath(data, i3DocsRelativePath);
-            buildIndex(index, data);
-            addSearchListeners(index, searchField);
+            addBasePathToUrls(data, pageConfig.basePath);
+            buildIndex(data, index);
+            addSearchListeners(data, index, searchField, projectItems);
+            viSearchWidgetWrapper.hidden = pageConfig.searchHidden;
             projectItems.items = data;
+            searchField.value = pageConfig.searchDefault;
         });
-    };
-
-    var domReady = function (readyCallback) {
-        if (window.HTMLImports && window.HTMLImports.whenReady) {
-            HTMLImports.whenReady(readyCallback);
-        } else if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', readyCallback);
-        } else {
-            readyCallback();
-        }
     };
 
     domReady(main);

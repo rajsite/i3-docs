@@ -1,0 +1,16 @@
+{
+    // names of npm modules to load into htmllint
+    "plugins": [],
+    
+    "line-end-style": false,
+
+    "id-class-style": false,
+
+    // Would prefer to use attr name style 'dash' but it gets confused by style$
+    "attr-name-style": false,
+
+    "attr-req-value": false,
+
+    // Removed width and style from attr-bans. Using them in iron-list for bindings right now
+    "attr-bans": ["align", "background", "bgcolor", "border", "frameborder", "longdesc", "marginwidth", "marginheight", "scrolling"]
+}

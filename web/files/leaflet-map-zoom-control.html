@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/leaflet-map/leaflet-core.html">
+<link href='../../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css' rel='stylesheet' />
+<script src="../../node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.js"></script>
+
+<dom-module id="leaflet-map-zoom-control">
+	<style>
+		:host {display: none;}
+	</style>
+	<template>
+	</template>
+	<script>
+	"use strict";
+	Polymer({
+		is: 'leaflet-map-zoom-control',
+		properties: {
+			/**
+			 * The `update-when-idle` attribute sets whether the control is updated on moveend, otherwise it's always up-to-date (updated on move).
+			 * 
+			 * @attribute update-when-idle
+			 * @type boolean
+			 */
+			updateWhenIdle: {
+				type: Boolean,
+				value: false
+			},
+			container: {
+				type: Object,
+				observer: '_containerChanged'
+			}
+		},
+		_containerChanged: function() {
+			if (this.container) {
+				var control = L.control.fullscreen();
+				this.control = control;
+				this.control.addTo(this.container);
+			}
+		},
+		detached: function() {
+			if (this.container && this.control) {
+				this.container.removeControl(this.control);
+			}
+		}
+	});
+	</script>
+</dom-module>

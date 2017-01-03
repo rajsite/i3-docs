@@ -1,4 +1,5 @@
 <!DOCTYPE html><html><head>
+<title>LabVIEW Documentation</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
@@ -21866,7 +21867,242 @@ Polymer({
 });
 </script>
 
-<script>/*
+<style>
+.leaflet-control-fullscreen a {
+  background:#fff url("../node_modules/leaflet-fullscreen/dist/fullscreen.png") no-repeat 0 0;
+  background-size:26px 52px;
+  }
+  .leaflet-touch .leaflet-control-fullscreen a {
+    background-position: 2px 2px;
+    }
+  .leaflet-fullscreen-on .leaflet-control-fullscreen a {
+    background-position:0 -26px;
+    }
+  .leaflet-touch.leaflet-fullscreen-on .leaflet-control-fullscreen a {
+    background-position: 2px -24px;
+    }
+
+/* Do not combine these two rules; IE will break. */
+.leaflet-container:-webkit-full-screen {
+  width:100%!important;
+  height:100%!important;
+  }
+.leaflet-container.leaflet-fullscreen-on {
+  width:100%!important;
+  height:100%!important;
+  }
+
+.leaflet-pseudo-fullscreen {
+  position:fixed!important;
+  width:100%!important;
+  height:100%!important;
+  top:0!important;
+  left:0!important;
+  z-index:99999;
+  }
+
+@media
+  (-webkit-min-device-pixel-ratio:2),
+  (min-resolution:192dpi) {
+    .leaflet-control-fullscreen a {
+      background-image:url("../node_modules/leaflet-fullscreen/dist/fullscreen@2x.png");
+    }
+  }
+
+</style><script>L.Control.Fullscreen = L.Control.extend({
+    options: {
+        position: 'topleft',
+        title: {
+            'false': 'View Fullscreen',
+            'true': 'Exit Fullscreen'
+        }
+    },
+
+    onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'leaflet-control-fullscreen leaflet-bar leaflet-control');
+
+        this.link = L.DomUtil.create('a', 'leaflet-control-fullscreen-button leaflet-bar-part', container);
+        this.link.href = '#';
+
+        this._map = map;
+        this._map.on('fullscreenchange', this._toggleTitle, this);
+        this._toggleTitle();
+
+        L.DomEvent.on(this.link, 'click', this._click, this);
+
+        return container;
+    },
+
+    _click: function (e) {
+        L.DomEvent.stopPropagation(e);
+        L.DomEvent.preventDefault(e);
+        this._map.toggleFullscreen(this.options);
+    },
+
+    _toggleTitle: function() {
+        this.link.title = this.options.title[this._map.isFullscreen()];
+    }
+});
+
+L.Map.include({
+    isFullscreen: function () {
+        return this._isFullscreen || false;
+    },
+
+    toggleFullscreen: function (options) {
+        var container = this.getContainer();
+        if (this.isFullscreen()) {
+            if (options && options.pseudoFullscreen) {
+                this._disablePseudoFullscreen(container);
+            } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else {
+                this._disablePseudoFullscreen(container);
+            }
+        } else {
+            if (options && options.pseudoFullscreen) {
+                this._enablePseudoFullscreen(container);
+            } else if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.mozRequestFullScreen) {
+                container.mozRequestFullScreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            } else if (container.msRequestFullscreen) {
+                container.msRequestFullscreen();
+            } else {
+                this._enablePseudoFullscreen(container);
+            }
+        }
+
+    },
+
+    _enablePseudoFullscreen: function (container) {
+        L.DomUtil.addClass(container, 'leaflet-pseudo-fullscreen');
+        this._setFullscreen(true);
+        this.invalidateSize();
+        this.fire('fullscreenchange');
+    },
+
+    _disablePseudoFullscreen: function (container) {
+        L.DomUtil.removeClass(container, 'leaflet-pseudo-fullscreen');
+        this._setFullscreen(false);
+        this.invalidateSize();
+        this.fire('fullscreenchange');
+    },
+
+    _setFullscreen: function(fullscreen) {
+        this._isFullscreen = fullscreen;
+        var container = this.getContainer();
+        if (fullscreen) {
+            L.DomUtil.addClass(container, 'leaflet-fullscreen-on');
+        } else {
+            L.DomUtil.removeClass(container, 'leaflet-fullscreen-on');
+        }
+    },
+
+    _onFullscreenChange: function (e) {
+        var fullscreenElement =
+            document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement;
+
+        if (fullscreenElement === this.getContainer() && !this._isFullscreen) {
+            this._setFullscreen(true);
+            this.fire('fullscreenchange');
+        } else if (fullscreenElement !== this.getContainer() && this._isFullscreen) {
+            this._setFullscreen(false);
+            this.fire('fullscreenchange');
+        }
+    }
+});
+
+L.Map.mergeOptions({
+    fullscreenControl: false
+});
+
+L.Map.addInitHook(function () {
+    if (this.options.fullscreenControl) {
+        this.fullscreenControl = new L.Control.Fullscreen(this.options.fullscreenControl);
+        this.addControl(this.fullscreenControl);
+    }
+
+    var fullscreenchange;
+
+    if ('onfullscreenchange' in document) {
+        fullscreenchange = 'fullscreenchange';
+    } else if ('onmozfullscreenchange' in document) {
+        fullscreenchange = 'mozfullscreenchange';
+    } else if ('onwebkitfullscreenchange' in document) {
+        fullscreenchange = 'webkitfullscreenchange';
+    } else if ('onmsfullscreenchange' in document) {
+        fullscreenchange = 'MSFullscreenChange';
+    }
+
+    if (fullscreenchange) {
+        var onFullscreenChange = L.bind(this._onFullscreenChange, this);
+
+        this.whenReady(function () {
+            L.DomEvent.on(document, fullscreenchange, onFullscreenChange);
+        });
+
+        this.on('unload', function () {
+            L.DomEvent.off(document, fullscreenchange, onFullscreenChange);
+        });
+    }
+});
+
+L.control.fullscreen = function (options) {
+    return new L.Control.Fullscreen(options);
+};
+</script><dom-module id="leaflet-map-zoom-control" assetpath="files/">
+	<style>
+		:host {display: none;}
+	</style>
+	<template>
+	</template>
+	<script>
+	"use strict";
+	Polymer({
+		is: 'leaflet-map-zoom-control',
+		properties: {
+			/**
+			 * The `update-when-idle` attribute sets whether the control is updated on moveend, otherwise it's always up-to-date (updated on move).
+			 * 
+			 * @attribute update-when-idle
+			 * @type boolean
+			 */
+			updateWhenIdle: {
+				type: Boolean,
+				value: false
+			},
+			container: {
+				type: Object,
+				observer: '_containerChanged'
+			}
+		},
+		_containerChanged: function() {
+			if (this.container) {
+				var control = L.control.fullscreen();
+				this.control = control;
+				this.control.addTo(this.container);
+			}
+		},
+		detached: function() {
+			if (this.container && this.control) {
+				this.container.removeControl(this.control);
+			}
+		}
+	});
+	</script>
+</dom-module><script>/*
  * Leaflet.Sleep
  */
 
@@ -25070,10 +25306,18 @@ body {
 </style><script>/* globals lunr HTMLImports*/
 (function () {
     'use strict';
-    var allData = [];
-    var projectItemsElement;
 
-    var buildIndex = function (index, data) {
+    var domReady = function (readyCallback) {
+        if (window.HTMLImports && window.HTMLImports.whenReady) {
+            HTMLImports.whenReady(readyCallback);
+        } else if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', readyCallback);
+        } else {
+            readyCallback();
+        }
+    };
+
+    var buildIndex = function (data, index) {
         data.forEach(function (projectItem) {
             index.add(projectItem);
         });
@@ -25081,14 +25325,16 @@ body {
 
     var addListState = function (data) {
         data.forEach(function (projectItem) {
-            projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
-                blockDiagramImage.opened = true;
+            projectItem.block_diagram_images.forEach(function (blockDiagramImage, index) {
+                blockDiagramImage.opened = index === 0;
             });
         });
     };
 
-    var addSearchListeners = function (index, searchElement) {
-        searchElement.addEventListener('change', function (evt) {
+    var addSearchListeners = function (data, index, searchElement, projectItems) {
+        var allData = data;
+
+        searchElement.addEventListener('value-changed', function (evt) {
             var resultRefs = index.search(evt.target.value);
             var refMap = resultRefs.reduce(function (refMap, resultRef) {
                 refMap[resultRef.ref] = resultRef.score;
@@ -25099,36 +25345,53 @@ body {
             });
 
             if (results.length > 0) {
-                projectItemsElement.items = results;
+                projectItems.items = results;
             } else {
-                projectItemsElement.items = allData;
+                projectItems.items = allData;
             }
         });
     };
 
-    var updateUrlsUsingRelativePath = function (data, i3DocsRelativePath) {
-        if (i3DocsRelativePath === '') {
+    var addBasePathToUrls = function (data, basePath) {
+        if (basePath === '') {
             return;
         }
 
         data.forEach(function (projectItem) {
             if (projectItem.icon_image.file_name !== '') {
-                projectItem.icon_image.file_name = i3DocsRelativePath + projectItem.icon_image.file_name;
+                projectItem.icon_image.file_name = basePath + projectItem.icon_image.file_name;
             }
 
             projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
-                blockDiagramImage.file_name = i3DocsRelativePath + blockDiagramImage.file_name;
+                blockDiagramImage.file_name = basePath + blockDiagramImage.file_name;
             });
         });
     };
 
-    var main = function () {
+    var getPageConfig = function () {
+        var pageConfig = {
+            basePath: '',
+            searchDefault: '',
+            searchHidden: false
+        };
+
         var searchParams = new URLSearchParams(window.location.search);
-        var i3DocsRelativePath = '';
         if (searchParams.has('i3-docs-path')) {
-            i3DocsRelativePath += searchParams.get('i3-docs-path');
+            pageConfig.basePath = searchParams.get('i3-docs-path');
         }
-        var i3DocsPath = i3DocsRelativePath + 'i3-docs.json';
+
+        if (searchParams.has('search-default')) {
+            pageConfig.searchDefault = searchParams.get('search-default');
+        }
+
+        pageConfig.searchHidden = searchParams.has('search-hidden');
+
+        return pageConfig;
+    };
+
+    var main = function () {
+        var pageConfig = getPageConfig();
+        var i3DocsPath = pageConfig.basePath + 'i3-docs.json';
 
         var index = lunr(function (idx) {
             idx.field('display_name');
@@ -25137,32 +25400,22 @@ body {
         });
 
         var projectItems = document.querySelector('.project_items');
-        projectItemsElement = projectItems;
-
         var searchField = document.querySelector('.search_field');
+        var viSearchWidgetWrapper = document.querySelector('.vi_search_widget_wrapper');
 
         fetch(i3DocsPath)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            allData = data;
             addListState(data);
-            updateUrlsUsingRelativePath(data, i3DocsRelativePath);
-            buildIndex(index, data);
-            addSearchListeners(index, searchField);
+            addBasePathToUrls(data, pageConfig.basePath);
+            buildIndex(data, index);
+            addSearchListeners(data, index, searchField, projectItems);
+            viSearchWidgetWrapper.hidden = pageConfig.searchHidden;
             projectItems.items = data;
+            searchField.value = pageConfig.searchDefault;
         });
-    };
-
-    var domReady = function (readyCallback) {
-        if (window.HTMLImports && window.HTMLImports.whenReady) {
-            HTMLImports.whenReady(readyCallback);
-        } else if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', readyCallback);
-        } else {
-            readyCallback();
-        }
     };
 
     domReady(main);
@@ -25191,23 +25444,25 @@ body {
 
 <template is="dom-if" if="[[projectItem.icon_image.file_name]]">
 <div class="icon_image_wrapper" style$="height:[[projectItem.icon_image.height]]px;">
-<img class="icon_image" src="[[projectItem.icon_image.file_name]]">
+<img class="icon_image" src="[[projectItem.icon_image.file_name]]" alt="[[projectItem.display_name]] icon">
 </div>
+</template>
+
+<template is="dom-if" if="[[projectItem.description]]">
+<p class="vi_description">[[projectItem.description]]</p>
 </template>
 
 <template is="dom-repeat" items="[[projectItem.block_diagram_images]]" as="blockDiagramImage">
 <iron-collapse class="collapse-content-wrapper" opened="[[blockDiagramImage.opened]]">
 <div class="collapse-content">
 <leaflet-map class="block_diagram_image" min-zoom="1" max-zoom="3" latitude="0" longitude="0" no-attribution-control="">
-<leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds="">
-</leaflet-map-image-overlay></leaflet-map>
+<leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds=""></leaflet-map-image-overlay>
+<leaflet-map-zoom-control></leaflet-map-zoom-control>
+
+</leaflet-map>
 </div>
 </iron-collapse>
 <paper-button class="block_diagram_button" toggles="" raised="" active="{{blockDiagramImage.opened}}">Block Diagram [[index]]</paper-button>
-</template>
-
-<template is="dom-if" if="[[projectItem.description]]">
-<p class="vi_description">[[projectItem.description]]</p>
 </template>
 
 </div>

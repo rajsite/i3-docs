@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+<title>LabVIEW Documentation</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
@@ -16,6 +17,7 @@
 <link href="../bower_components/paper-input/paper-input.html" rel="import">
 
 <link href="../bower_components/leaflet-map/leaflet-map.html" rel="import">
+<link href="files/leaflet-map-zoom-control.html" rel="import">
 <link href="files/leaflet-import-helper.html" rel="import">
 <link href="../bower_components/leaflet-map-image-overlay/leaflet-map-image-overlay.html" rel="import">
 
@@ -51,23 +53,25 @@
 
 <template is="dom-if" if="[[projectItem.icon_image.file_name]]">
 <div class="icon_image_wrapper" style$="height:[[projectItem.icon_image.height]]px;">
-<img class="icon_image" src="[[projectItem.icon_image.file_name]]">
+<img class="icon_image" src="[[projectItem.icon_image.file_name]]" alt="[[projectItem.display_name]] icon">
 </div>
+</template>
+
+<template is="dom-if" if="[[projectItem.description]]">
+<p class="vi_description">[[projectItem.description]]</p>
 </template>
 
 <template is="dom-repeat" items="[[projectItem.block_diagram_images]]" as="blockDiagramImage">
 <iron-collapse class="collapse-content-wrapper" opened="[[blockDiagramImage.opened]]">
 <div class="collapse-content">
 <leaflet-map class="block_diagram_image" min-zoom="1" max-zoom="3" latitude="0" longitude="0" no-attribution-control>
-<leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds></leaflet-image-overlay>
+<leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds></leaflet-map-image-overlay>
+<leaflet-map-zoom-control></leaflet-map-zoom-control>
+
 </leaflet-map>
 </div>
 </iron-collapse>
 <paper-button class="block_diagram_button" toggles raised active="{{blockDiagramImage.opened}}">Block Diagram [[index]]</paper-button>
-</template>
-
-<template is="dom-if" if="[[projectItem.description]]">
-<p class="vi_description">[[projectItem.description]]</p>
 </template>
 
 </div>
