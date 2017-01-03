@@ -84,6 +84,12 @@
         return pageConfig;
     };
 
+    var updatePageTitle = function (data) {
+        if (data.length > 0) {
+            document.title = data[0].display_name + ' - LabVIEW Documentation';
+        }
+    };
+
     var main = function () {
         var pageConfig = getPageConfig();
         var i3DocsPath = pageConfig.basePath + 'i3-docs.json';
@@ -104,6 +110,7 @@
         })
         .then(function (data) {
             addListState(data);
+            updatePageTitle(data);
             addBasePathToUrls(data, pageConfig.basePath);
             buildIndex(data, index);
             addSearchListeners(data, index, searchField, projectItems);
