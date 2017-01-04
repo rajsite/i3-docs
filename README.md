@@ -3,7 +3,7 @@ Awesome doc generation for LabVIEW projects
 
 i3-docs lets you search, inspect, and link to VIs from your web browser. Documentation is meant to be read!
 
-![i3 docs usage example](http://i.imgur.com/5OigokZ.gif)
+![i3 docs usage example](http://i.imgur.com/ae4YYSo.gif)
 
 # Features
 
