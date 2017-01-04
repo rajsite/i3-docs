@@ -1,0 +1,37 @@
+# markdown-spellcheck spelling configuration file
+# Format - lines beginning # are comments
+# global dictionary is at the start, file overrides afterwards
+# one word per line, to define a file override use ' - filename'
+# where filename is relative to this configuration file
+
+# Social Media
+LinkedIn
+rajsite.com
+
+# NI Terms
+LabVIEW
+VIs
+lvproj
+
+# Tech Terms
+JSON
+UI
+url
+https
+iframe
+json
+ini
+LTS
+package.json
+
+# Project Names
+hashdeep
+i3-docs
+i3-twitter
+Node.js
+npm
+
+# Dictionary Words
+programmatically
+natively
+performant
