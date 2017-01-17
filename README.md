@@ -56,7 +56,9 @@ The following url parameters can be added:
    The `.i3-docs.ini` file will have the following sections:
    
    - `[project_files]` a named list of relative paths from .i3-docs.ini to the .lvproj file(s) for your project
-   - `[output_directories]` a named list of relative directories where generated output will be placed
+   - `[output_directories]` a named list of relative directories where generated output will be placed 
+    
+   *NOTE: This directory will be deleted and recreated during runs [due to how files are currently generated](https://github.com/rajsite/i3-docs/issues/6).*
 
    The names are just used to map values between sections; they don't have any other significance.
 
@@ -68,9 +70,16 @@ The following url parameters can be added:
    awesome_project1=i3-docs.lvproj
    awesome_project2=../other_awesome_project/awesome.lvproj
 
+   ;The output directories where docs will be placed relative to this file (.i3-docs.ini)
+   ;NOTE: These directories and their contents will be deleted between every run
    [output_directories]
    awesome_project1=docs
    awesome_project2=../other_awesome_project/docs
+
+   ;By default a warning is displayed before each output directory is deleted
+   ;You can prevent these warnings by uncommenting the following lines
+   ;[warnings]
+   ;disable_output_directory_delete_warning=true
    ```
 2. Create a `package.json` file if one has not been made
 
