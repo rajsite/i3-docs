@@ -5,6 +5,7 @@
     'use strict';
     var ini = require('ini');
     var fs = require('fs');
+    var os = require('os');
     var path = require('path');
     var shelljs = require('shelljs');
     var findParentDir = require('find-parent-dir');
@@ -130,8 +131,42 @@
         installWebAppToAbsoluteDirectoryEntries(webAppFilesRoot, absoluteOutputDirectoryEntries);
     };
 
+    var init = function (argv) {
+        verifyOnlyOneCommand(argv);
+        createLogger(argv.v);
+
+        var cwd = process.cwd();
+        log('Current Working Directory (to create .i3-docs.ini):', cwd);
+
+        var targeti3Docs = path.join(cwd, '.i3-docs.ini');
+        if (fs.existsSync(targeti3Docs)) {
+            console.error('An .i3-docs.ini file already exists in the current working directory:', cwd);
+            process.exit(1);
+        }
+
+        var readmeFile = path.join(__dirname, '../README.md');
+        log('Web App Files Root', readmeFile);
+
+        var readme = fs.readFileSync(readmeFile, 'utf8');
+        var iniMatch = readme.match(/```ini([\s\S]*)```/);
+        var iniWithIndents = iniMatch[1].trim();
+        var iniLinesWithIndents = iniWithIndents.split(/\r?\n/);
+        var ini = iniLinesWithIndents.map(function (iniLine) {
+            return iniLine.trim();
+        }).join(os.EOL);
+        var iniWithNewLine = ini + os.EOL;
+
+        log('.i3-docs.ini content from README -- start');
+        log(iniWithNewLine);
+        log('.i3-docs.ini content from README -- end');
+
+        log('Writing .i3-docs.ini to the following path', targeti3Docs);
+        fs.writeFileSync(targeti3Docs, iniWithNewLine, 'utf8');
+    };
+
     var startOfActualArgs = 2;
     yargs.usage('Usage: $0 <command> [options]')
+         .command('init', 'Creates an example .i3-docs.ini file in the current directory', {}, init)
          .command('install', 'Copy the i3-docs webapp files to the build output directories', {}, install)
          .demandCommand(1)
          .help('h')

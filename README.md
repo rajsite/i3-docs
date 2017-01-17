@@ -36,13 +36,14 @@ The following url parameters can be added:
 # Generating docs (Summary)
 
 ## Set-up (one-time)
-1. Create an .i3-docs.ini
-2. Create a package.json
-3. Run command: `npm install i3-docs --save-dev`
+1. Set-up `package.json` with command: `npm init`
+2. Install i3-docs with command: `npm install i3-docs --save-dev`
+3. Create `.i3-docs.ini` with command: `node_modules\.bin\i3-docs init`
+4. Modify `.i3-docs.ini` with your project specific settings
 
 ## Build documentation (after VI changes)
-1. Run VI: `node_modules\i3-docs\lv\Main\Generate JSON Report.vi`
-2. Run command: `node_modules\.bin\i3-docs install`
+1. Run VI to generate project data and images: `node_modules\i3-docs\lv\Main\Generate JSON Report.vi`
+2. Generate HTML with command: `node_modules\.bin\i3-docs install`
 
 # Generating docs (Detailed)
 ## Prerequisites
@@ -51,16 +52,43 @@ The following url parameters can be added:
 - LabVIEW Project file (.lvproj) that organizes the VIs for your project
 
 ## Set-up (one-time)
-1. In a directory create an `.i3-docs.ini` file (preferably the root of the project or root of the repository)
+1. Create a `package.json` file (preferably the root of the project or root of the repository)
+
+   The i3-docs project is managed using the Node Package Manager (npm). A `package.json` file is used to hold configuration settings for use by npm (such as the version of i3-docs being used).
+
+   1. Open a command prompt in the project folder.
+   2. Run the command: 
+      
+      `npm init`
+   3. Follow along with the prompt to create the `package.json` file. The defaults are usually good enough.
+
+2. Install the `i3-docs` npm package
+
+   In a command prompt in the folder containing `package.json` run the following command:
    
-   The `.i3-docs.ini` file will have the following sections:
+   `npm install i3-docs --save-dev`
+
+   The `devDependencies` section of `package.json` should be updated to include `i3-docs` at the latest version. You should also see a folder named `node_modules` appear in the directory next to `package.json`.
+
+   Note: If you are using a source code control system you may want to add an entry to *ignore* the `node_modules` folder. For example, on git you would add `/node_modules` to the `.gitignore` file.
+
+3. Create an `.i3-docs.ini` file (preferably in the same folder as the `package.json` file made above).
+   The `.i3-docs.ini` file contains all of the configuration settings for generating the docs.
+
+   1. Open a command prompt in the folder containing the `package.json` file
+   2. Run the command:
+
+      `node_modules\.bin\i3-docs init`
+   3. This will create an `i3-docs.ini` file in the directory it was run. See the following for how to configure the individual sections of the configuration file.
+
+4. The `.i3-docs.ini` file will have the following sections to modify for your project:
    
    - `[project_files]` a named list of relative paths from .i3-docs.ini to the .lvproj file(s) for your project
    - `[output_directories]` a named list of relative directories where generated output will be placed 
     
-   *NOTE: This directory will be deleted and recreated during runs [due to how files are currently generated](https://github.com/rajsite/i3-docs/issues/6).*
+      *NOTE: The directories listed under the `[output_directories]` section will be deleted and recreated during runs [due to how files are currently generated](https://github.com/rajsite/i3-docs/issues/6).*
 
-   The names are just used to map values between sections; they don't have any other significance.
+   The names are just used to map values between sections, progress updates, etc. They do not appear in generated content.
 
    Example `.i3-docs.ini`:
    ```ini
@@ -81,25 +109,6 @@ The following url parameters can be added:
    ;[warnings]
    ;disable_output_directory_delete_warning=true
    ```
-2. Create a `package.json` file if one has not been made
-
-   The i3-docs project is managed using the Node Package Manager (npm). A `package.json` file is used to hold configuration settings for use by npm (such as the version of i3-docs being used).
-
-   1. Open a command prompt in the project folder (preferably in the same folder as the `.i3-docs.ini` file made above).
-   2. Run the command: 
-      
-      `npm init`
-   3. Follow along with the prompt to create the package.json file. The defaults are usually good enough.
-
-3. Install the `i3-docs` npm package
-
-   In a command prompt in the folder containing `package.json` run the following command:
-   
-   `npm install i3-docs --save-dev`
-
-   The `devDependencies` section of `package.json` should be updated to include `i3-docs` at the latest version. You should also see a folder named `node_modules` appear in the directory next to `package.json`.
-
-   Note: If you are using a source code control system you may want to add an entry to *ignore* the `node_modules` folder. For example, on git you would add `/node_modules` to the `.gitignore` file.
 
 ## Build documentation (after VI changes)
 1. Build `i3-docs.json` and image resources
