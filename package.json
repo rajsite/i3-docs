@@ -1,6 +1,6 @@
 {
   "name": "i3-docs",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Awesome doc generation for LabVIEW projects",
   "scripts": {
     "test": "npm run eslint && npm run htmllint && npm run mdspell",
