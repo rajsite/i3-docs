@@ -47,12 +47,12 @@ The following url parameters can be added:
 
 # Generating docs (Detailed)
 ## Prerequisites
-- Node.js (recommend LTS 6.9 or up)
+- [Node.js](https://nodejs.org/en/) (LTS 6.9 or up recommended)
 - LabVIEW 2014 or up
 - LabVIEW Project file (.lvproj) that organizes the VIs for your project
 
 ## Set-up (one-time)
-1. Create a `package.json` file (preferably the root of the project or root of the repository)
+1. Use the following steps to create a `package.json` file (preferably the root of the project or root of the repository)
 
    The i3-docs project is managed using the Node Package Manager (npm). A `package.json` file is used to hold configuration settings for use by npm (such as the version of i3-docs being used).
 
@@ -72,8 +72,8 @@ The following url parameters can be added:
 
    Note: If you are using a source code control system you may want to add an entry to *ignore* the `node_modules` folder. For example, on git you would add `/node_modules` to the `.gitignore` file.
 
-3. Create an `.i3-docs.ini` file (preferably in the same folder as the `package.json` file made above).
-   The `.i3-docs.ini` file contains all of the configuration settings for generating the docs.
+3. Use the following steps to create an `.i3-docs.ini` file (in the same folder as the `package.json` file made above).
+   The `.i3-docs.ini` file will contain all of the configuration settings for generating the docs.
 
    1. Open a command prompt in the folder containing the `package.json` file
    2. Run the command:
@@ -113,11 +113,9 @@ The following url parameters can be added:
 ## Build documentation (after VI changes)
 1. Build `i3-docs.json` and image resources
 
-   After installing the `i3-docs` package you should be able to locate the following VI installed in the `node_modules` folder: `node_modules\i3-docs\lv\Main\Generate JSON Report.vi`
+   There should be a folder named `node_modules` next to the file `package.json`. Open and run the following VI: `node_modules\i3-docs\lv\Main\Generate JSON Report.vi`
 
-   Open and run `Generate JSON Report.vi`. The VI will search parent directories until it finds a `.i3-docs.ini` file and it will use that file for configuration information.
-
-   This is why it is recommended that `.i3-docs.ini` and `project.json` be located in the same directory (ideally at the root of the project).
+   The `Generate JSON Report VI` will search parent directories until it finds a `.i3-docs.ini` file and it will use that file for configuration information.
 
 2. Build `index.html` and web application resources
 
@@ -125,4 +123,4 @@ The following url parameters can be added:
 
    `node_modules\.bin\i3-docs install`
 
-   After running, the folders listed in the section `[output_directories]` of the `.i3-docs.ini` file will have the web application resources copied over.
+   After running `i3-docs install` command, the folders listed in the section `[output_directories]` of the `.i3-docs.ini` file will have the web application resources copied over.
