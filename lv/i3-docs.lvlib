@@ -18,6 +18,7 @@
 		<Item Name="Generate JSON Report.vi" Type="VI" URL="../Main/Generate JSON Report.vi"/>
 	</Item>
 	<Item Name="SubVI" Type="Folder">
+		<Item Name="Combine Images Vertically.vi" Type="VI" URL="../SubVI/Combine Images Vertically.vi"/>
 		<Item Name="Config FGV - Set Current Project Item.vi" Type="VI" URL="../SubVI/Config FGV - Set Current Project Item.vi"/>
 		<Item Name="Config FGV.vi" Type="VI" URL="../SubVI/Config FGV.vi"/>
 		<Item Name="Copy Image To Output.vi" Type="VI" URL="../SubVI/Copy Image To Output.vi"/>
