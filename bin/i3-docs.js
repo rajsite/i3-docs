@@ -16,8 +16,8 @@
         // Intentionally blank
     };
 
-    var createLogger = function (verbose) {
-        if (verbose) {
+    var createLogger = function (quiet) {
+        if (!quiet) {
             log = console.log.bind(console);
         }
     };
@@ -87,7 +87,7 @@
         return absoluteOutputDirectoryEntries;
     };
 
-    var installWebAppToAbsoluteDirectoryEntries = function (webAppFilesRoot, absoluteOutputDirectoryEntries) {
+    var applyWebAppToAbsoluteDirectoryEntries = function (webAppFilesRoot, absoluteOutputDirectoryEntries) {
         var webAppFileList = webAppFilesRoot + '*';
 
         log('Copying web app files to output directories [start]');
@@ -115,9 +115,9 @@
         }
     };
 
-    var install = function (argv) {
+    var apply = function (argv) {
         verifyOnlyOneCommand(argv);
-        createLogger(argv.v);
+        createLogger(argv.q);
 
         var cwd = process.cwd();
         log('Current Working Directory:', cwd);
@@ -128,12 +128,12 @@
         var configDir = findI3DocsConfigDir(cwd);
         var config = loadI3DocsConfig(configDir);
         var absoluteOutputDirectoryEntries = createAbsoluteOutputDirectoryEntries(configDir, config);
-        installWebAppToAbsoluteDirectoryEntries(webAppFilesRoot, absoluteOutputDirectoryEntries);
+        applyWebAppToAbsoluteDirectoryEntries(webAppFilesRoot, absoluteOutputDirectoryEntries);
     };
 
     var init = function (argv) {
         verifyOnlyOneCommand(argv);
-        createLogger(argv.v);
+        createLogger(argv.q);
 
         var cwd = process.cwd();
         log('Current Working Directory (to create .i3-docs.ini):', cwd);
@@ -165,14 +165,20 @@
     };
 
     var startOfActualArgs = 2;
+    var sharedCommands = {
+        quiet: {
+            alias: 'q',
+            default: false,
+            describe: 'quiet logging'
+        }
+    };
+    var initCommands = Object.assign({}, sharedCommands);
+    var applyCommands = Object.assign({}, sharedCommands);
     yargs.usage('Usage: $0 <command> [options]')
-         .command('init', 'Creates an example .i3-docs.ini file in the current directory', {}, init)
-         .command('install', 'Copy the i3-docs webapp files to the build output directories', {}, install)
+         .command('init', 'Creates an example .i3-docs.ini file in the current directory', initCommands, init)
+         .command('apply', 'Copy the i3-docs webapp files to the build output directories', applyCommands, apply)
          .demandCommand(1)
          .help('h')
          .alias('h', 'help')
-         .boolean('v')
-         .alias('v', 'verbose')
-         .describe('v', 'verbose logging')
          .parse(process.argv.slice(startOfActualArgs));
 }());

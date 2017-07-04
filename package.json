@@ -12,8 +12,8 @@
     "serve-build": "http-server -p 8040 -o http://localhost:8040/docs/ .",
     "prebuild-webapp": "mkdirp build",
     "build-webapp": "vulcanize --inline-scripts --inline-css --out-html build/index.html web/index.html",
-    "i3-docs-install": "node bin/i3-docs.js install -v",
-    "build-docs": "npm run build-webapp && npm run i3-docs-install"
+    "i3-docs-apply": "node bin/i3-docs.js apply",
+    "build-docs": "npm run build-webapp && npm run i3-docs-apply"
   },
   "repository": {
     "type": "git",

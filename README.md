@@ -43,7 +43,7 @@ The following url parameters can be added:
 
 ## Build documentation (after VI changes)
 1. Run VI to generate project data and images: `node_modules\i3-docs\lv\Main\Generate JSON Report.vi`
-2. Generate HTML with command: `node_modules\.bin\i3-docs install`
+2. Generate HTML with command: `node_modules\.bin\i3-docs apply`
 
 # Generating docs (Detailed)
 ## Prerequisites
@@ -121,6 +121,6 @@ The following url parameters can be added:
 
    In a command prompt in the folder containing `package.json` run the following command:
 
-   `node_modules\.bin\i3-docs install`
+   `node_modules\.bin\i3-docs apply`
 
-   After running `i3-docs install` command, the folders listed in the section `[output_directories]` of the `.i3-docs.ini` file will have the web application resources copied over.
+   After running `i3-docs apply` command, the folders listed in the section `[output_directories]` of the `.i3-docs.ini` file will have the web application resources copied over.
