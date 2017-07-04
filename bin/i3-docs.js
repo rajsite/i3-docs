@@ -179,9 +179,10 @@
         var lvScript = path.join(__dirname, '../script/autrungenerate.bat');
         log('Autogenerate bat script:', lvScript);
 
-        var spawnSync = require('child_process').spawnSync;
-        spawnSync(lvScript, [lvVI], {
-            cwd: configDir
+        var spawn = require('child_process').spawn;
+        spawn(lvScript, [lvVI], {
+            cwd: configDir,
+            stdio: 'inherit'
         });
     };
 
@@ -199,7 +200,7 @@
     yargs.usage('Usage: $0 <command> [options]')
          .command('init', 'Creates an example .i3-docs.ini file in the current directory', initCommands, init)
          .command('apply', 'Copy the i3-docs webapp files to the build output directories', applyCommands, apply)
-         .command('generate', 'Attempts to run the lv/Main/Autorun Generate JSON Request.vi', generateCommands, generate)
+         .command('generate', 'Attempts to run the lv/Main/Autorun Generate JSON Request.vi. Warning: LabVIEW should not be open before running this command', generateCommands, generate)
          .demandCommand(1)
          .help('h')
          .alias('h', 'help')
