@@ -1,9 +1,10 @@
 language: node_js
 node_js:
 - '6'
+before_install:
+- npm install npm@latest -g
 before_script:
 - npm run deps
-- npm run hash-linux-check
 - npm run build-webapp
 deploy:
   provider: npm
