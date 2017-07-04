@@ -27,6 +27,7 @@
 		<Item Name="Create Project Item - Shared.vi" Type="VI" URL="../SubVI/Create Project Item - Shared.vi"/>
 		<Item Name="Create Project Item - VI.vi" Type="VI" URL="../SubVI/Create Project Item - VI.vi"/>
 		<Item Name="Get Block Diagram Image Sizes.vi" Type="VI" URL="../SubVI/Get Block Diagram Image Sizes.vi"/>
+		<Item Name="Get Current Directory of Process.vi" Type="VI" URL="../SubVI/Get Current Directory of Process.vi"/>
 		<Item Name="Get Project Item Type String.vi" Type="VI" URL="../SubVI/Get Project Item Type String.vi"/>
 		<Item Name="Iterate Owned Items.vi" Type="VI" URL="../SubVI/Iterate Owned Items.vi"/>
 		<Item Name="Load Configuration File.vi" Type="VI" URL="../SubVI/Load Configuration File.vi"/>
