@@ -164,6 +164,27 @@
         fs.writeFileSync(targeti3Docs, iniWithNewLine, 'utf8');
     };
 
+    var generate = function (argv) {
+        verifyOnlyOneCommand(argv);
+        createLogger(argv.q);
+
+        var cwd = process.cwd();
+        log('Current Working Directory:', cwd);
+
+        var configDir = findI3DocsConfigDir(cwd);
+
+        var lvVI = path.join(__dirname, '../lv/Main/Autorun Generate JSON Request.vi');
+        log('Autogenerate VI:', lvVI);
+
+        var lvScript = path.join(__dirname, '../script/autrungenerate.bat');
+        log('Autogenerate bat script:', lvScript);
+
+        var spawnSync = require('child_process').spawnSync;
+        spawnSync(lvScript, [lvVI], {
+            cwd: configDir
+        });
+    };
+
     var startOfActualArgs = 2;
     var sharedCommands = {
         quiet: {
@@ -174,9 +195,11 @@
     };
     var initCommands = Object.assign({}, sharedCommands);
     var applyCommands = Object.assign({}, sharedCommands);
+    var generateCommands = Object.assign({}, sharedCommands);
     yargs.usage('Usage: $0 <command> [options]')
          .command('init', 'Creates an example .i3-docs.ini file in the current directory', initCommands, init)
          .command('apply', 'Copy the i3-docs webapp files to the build output directories', applyCommands, apply)
+         .command('generate', 'Attempts to run the lv/Main/Autorun Generate JSON Request.vi', generateCommands, generate)
          .demandCommand(1)
          .help('h')
          .alias('h', 'help')

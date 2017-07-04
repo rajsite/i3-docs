@@ -21,6 +21,15 @@
             "args": [
                 "init"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "i3-docs generate",
+            "program": "${workspaceRoot}/bin/i3-docs.js",
+            "args": [
+                "generate"
+            ]
         }
     ]
 }

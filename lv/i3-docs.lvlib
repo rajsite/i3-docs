@@ -15,6 +15,7 @@
 		<Item Name="project_item.ctl" Type="VI" URL="../Controls/project_item.ctl"/>
 	</Item>
 	<Item Name="Main" Type="Folder">
+		<Item Name="Autorun Generate JSON Request.vi" Type="VI" URL="../Main/Autorun Generate JSON Request.vi"/>
 		<Item Name="Generate JSON Report.vi" Type="VI" URL="../Main/Generate JSON Report.vi"/>
 	</Item>
 	<Item Name="SubVI" Type="Folder">
