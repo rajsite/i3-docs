@@ -53,9 +53,9 @@
         }
 
         data.forEach(function (projectItem) {
-            if (projectItem.icon_image.file_name !== '') {
-                projectItem.icon_image.file_name = basePath + projectItem.icon_image.file_name;
-            }
+            projectItem.icon_images.forEach(function (iconImage) {
+                iconImage.file_name = basePath + iconImage.file_name;
+            });
 
             projectItem.block_diagram_images.forEach(function (blockDiagramImage) {
                 blockDiagramImage.file_name = basePath + blockDiagramImage.file_name;

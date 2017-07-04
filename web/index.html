@@ -51,9 +51,9 @@
 <paper-card class="project_item" heading="[[projectItem.display_name]]">
 <div class="card-content">
 
-<template is="dom-if" if="[[projectItem.icon_image.file_name]]">
-<div class="icon_image_wrapper" style$="height:[[projectItem.icon_image.height]]px;">
-<img class="icon_image" src="[[projectItem.icon_image.file_name]]" alt="[[projectItem.display_name]] icon">
+<template is="dom-repeat" items="[[projectItem.icon_images]]" as="iconImage">
+<div class="icon_image_wrapper" style$="height:[[iconImage.height]]px;">
+<img class="icon_image" src="[[iconImage.file_name]]" alt="[[projectItem.display_name]] icon">
 </div>
 </template>
 
