@@ -1,32 +1,6 @@
-# Libraries
-*.lvlibp
-*.llb
+# Ignore everything
+*
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-!hashdeep/*.exe
-
-# Metadata
-*.aliases
-*.lvlps
-
-# Log files
-npm-debug.log
-
-# Package manager directories
-/bower_components
-/node_modules
-
-# Build output
-/build
-/apidocs
-
-# Local files
-/experiments
-*.tgz
+# Except docs
+!README.md
+!apidocs/
