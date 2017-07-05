@@ -1,6 +1,6 @@
 # Ignore everything
-*
+*.*
 
 # Except docs
 !README.md
-!apidocs/
+!apidocs/*
