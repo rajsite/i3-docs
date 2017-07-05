@@ -14,8 +14,7 @@ i3-docs lets you search, inspect, and link to VIs from your web browser. Documen
 
 # Examples
 
-- [i3-docs generated documentation](https://rajsite.github.io/i3-docs)
-- [i3-twitter generated documentation](https://rajsite.github.io/i3-twitter)
+- [i3-docs generated documentation](https://rajsite.github.io/i3-docs/apidocs)
 
 # Usage
 
@@ -25,11 +24,11 @@ The following url parameters can be added:
 
 1. `search-default`: A default search value to filter the page
    
-   example: [https://rajsite.github.io/i3-docs/?search-default=Generate](https://rajsite.github.io/i3-docs/?search-default=Generate)
+   example: [https://rajsite.github.io/i3-docs/apidocs/?search-default=Generate](https://rajsite.github.io/i3-docs/apidocs/?search-default=Generate)
 
 2. `search-hidden`: Will hide the search bar on the page. Together with `search-default` it makes a useful way to embed the documentation for a single VI in an iframe
 
-   example: [https://rajsite.github.io/i3-docs/?search-default=Generate&search-hidden](https://rajsite.github.io/i3-docs/?search-default=Generate&search-hidden)
+   example: [https://rajsite.github.io/i3-docs/apidocs/?search-default=Generate&search-hidden](https://rajsite.github.io/i3-docs/apidocs/?search-default=Generate&search-hidden)
 
 3. `i3-docs-path`: Intended for development use. Allows one to override the path used to load the i3-docs.json file and resources
 
