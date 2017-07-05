@@ -17,6 +17,7 @@
 <link href="../bower_components/paper-input/paper-input.html" rel="import">
 
 <link href="../bower_components/leaflet-map/leaflet-map.html" rel="import">
+<link href="files/leaflet-map-force-crs.html" rel="import">
 <link href="files/leaflet-map-zoom-control.html" rel="import">
 <link href="files/leaflet-import-helper.html" rel="import">
 <link href="../bower_components/leaflet-map-image-overlay/leaflet-map-image-overlay.html" rel="import">
@@ -65,6 +66,7 @@
 <iron-collapse class="collapse-content-wrapper" opened="[[blockDiagramImage.opened]]">
 <div class="collapse-content">
 <leaflet-map class="block_diagram_image" min-zoom="1" max-zoom="3" latitude="0" longitude="0" no-attribution-control>
+<leaflet-map-force-crs></leaflet-map-force-crs>
 <leaflet-map-image-overlay url="[[blockDiagramImage.file_name]]" height="[[blockDiagramImage.height]]" width="[[blockDiagramImage.width]]" fit-map-to-bounds></leaflet-map-image-overlay>
 <leaflet-map-zoom-control></leaflet-map-zoom-control>
 
