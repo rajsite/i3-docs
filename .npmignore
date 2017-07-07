@@ -8,3 +8,4 @@
 !lv/**/*.lvlib
 !lv/**/*.lvproj
 !lv/**/*.vi
+!script/**/*
