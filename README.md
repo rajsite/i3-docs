@@ -1,4 +1,10 @@
 # i3-docs
+
+## Status
+
+Archived. This project is no longer maintained. For more information contact Milan Raj (@rajsite).
+
+## Overview
 [![Readme Link](https://img.shields.io/badge/Link-README-green.svg)](https://github.com/rajsite/i3-docs)
 [![Example Link](https://img.shields.io/badge/Link-Example-green.svg)](https://rajsite.github.io/i3-docs/apidocs/)
 
@@ -6,23 +12,23 @@ i3-docs lets you search, inspect, and link to LabVIEW VIs from your web browser.
 
 [![i3 docs usage example](http://i.imgur.com/ae4YYSo.gif)](https://rajsite.github.io/i3-docs/apidocs/)
 
-# Features
+## Features
 - Shows VI display name, description, connector pane and block diagram screenshots
 - Modern mobile-friendly UI
 - Client side text search
 - Url parameters to link to specific searches
 
-# Examples
+## Examples
 - [i3-docs generated documentation](https://rajsite.github.io/i3-docs/apidocs)
 
-# Quick Start
+## Quick Start
 
-## Prerequisites
+### Prerequisites
 - [Node.js](https://nodejs.org/en/) (LTS 6.9 or up recommended)
 - LabVIEW 2014 or up
 - LabVIEW Project file (.lvproj) that organizes the VIs for your project
 
-## Setup
+### Setup
 1. With the above prerequisites installed open a command-line in the folder with your `.lvproj` file and run the following command:
 
    `npm install -g i3-docs`
@@ -64,7 +70,7 @@ i3-docs lets you search, inspect, and link to LabVIEW VIs from your web browser.
 
    NOTE: The directories listed under the `[output_directories]` section __will be deleted and recreated__ during documentation generation.
 
-## Generate Documentation
+### Generate Documentation
 
 1. With all instances of LabVIEW closed and from the folder containing your customized `.i3-docs.ini` file or a subfolder run the following command:
 
@@ -82,7 +88,7 @@ i3-docs lets you search, inspect, and link to LabVIEW VIs from your web browser.
 
    To view the generated HTML you will need to copy the output directory to a static file server or use a browser with less restrictive security such as Mozilla Firefox
 
-# Advanced Usage
+## Advanced Usage
 Enter a query in the search field and the page is live filtered to show project items with that search. If the search field is cleared or no result is found the filter is reset and all project items are shown.
 
 The following url parameters can be added:
